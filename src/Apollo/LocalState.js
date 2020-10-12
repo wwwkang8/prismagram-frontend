@@ -1,5 +1,6 @@
 export const defaults = {
-    isLoggedIn: localStorage.getItem("token") != null ? true : false
+    //token이 있다면 True, 없다면 False 반환
+    isLoggedIn: Boolean(localStorage.getItem("token")) || false
 };
 
 export const resolvers = {
