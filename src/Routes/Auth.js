@@ -68,7 +68,7 @@ export default () => {
                     <form>
                         <Input placeholder={"Username"} {...username} />
                         <Input placeholder={"Passoword"} {...password} type = "password"/>
-                        <Input text={"Log in"} />
+                        <Button text={"Log in"} />
                     </form>
                 ) : (
                     <form>
