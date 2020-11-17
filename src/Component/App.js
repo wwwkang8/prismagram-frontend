@@ -13,8 +13,6 @@ import Router from "./Router";
  */
 
 export default () => (
-    <>
-      <Router isLoggedIn={false} />
-    </>
+    <Router isLoggedIn={false} />
 );
 
