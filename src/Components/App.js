@@ -6,6 +6,7 @@ import Theme from "../Styles/Theme";
 import Router from "./Router";
 import { useQuery } from 'react-apollo-hooks';
 import Footer from "./Footer";
+/* react-toastify를 import */
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -28,6 +29,7 @@ export default () => {
 
     console.log(isLoggedIn);
 
+    // ToastContainer를 App.js에서 호출하고, ToastContainer는 toast의 전반적인 위치나 이런것들을 설정해주는 최상위 컴포넌트
     return (
       <ThemeProvider theme={Theme}>
         <Wrapper>

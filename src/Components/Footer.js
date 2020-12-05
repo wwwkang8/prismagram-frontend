@@ -65,6 +65,6 @@ export default () => (
         <Link href="#">language</Link>
       </ListItem>
     </List>
-    <Copyright>강정호 김민규 합작회사 해바라기 {new Date().getFullYear()} &copy;</Copyright>
+    <Copyright>해바라기 {new Date().getFullYear()} &copy;</Copyright>
   </Footer>
 );
