@@ -7,31 +7,27 @@ import { toast } from "react-toastify";
 
 export default () => {
   const [action, setAction] = useState("logIn");
-  const username = useInput("");
+  const userName = useInput("");
   const firstName = useInput("");
   const lastName = useInput("");
-  const email = useInput("wwwkang8@gmail.com");
-  const requestSecretMutation = useMutation(LOG_IN, {
-    variables: { email: email.value }
-  });
-  const createAccountMutation = useMutation(CREATE_ACCOUNT, {
-    variables: {
-      email: email.value,
-      username: username.value,
-      firstName: firstName.value,
-      lastName: lastName.value
-    }
-  });
+  const email = useInput("wwwkang5@gmail.com");
+  const [requestSecretMutation] = useMutation(LOG_IN);
+  const [createAccountMutation] = useMutation(CREATE_ACCOUNT);
 
   const onSubmit = async e => {
     e.preventDefault();
     if (action === "logIn") {
       if (email.value !== "") {
         try {
-          const { requestSecret } = await requestSecretMutation();
+
+          const requestSecretResult = await requestSecretMutation({ variables: { email: email.value } });
+          const requestSecret = requestSecretResult.data.requestSecret;
+
           if (!requestSecret) {
             toast.error("You dont have an account yet, create one");
             setTimeout(() => setAction("signUp"), 3000);
+          }else{
+            toast.success("Check your inbox for login secret");
           }
         } catch {
           toast.error("Can't request secret, try again");
@@ -42,12 +38,20 @@ export default () => {
     } else if (action === "signUp") {
       if (
         email.value !== "" &&
-        username.value !== "" &&
+        userName.value !== "" &&
         firstName.value !== "" &&
         lastName.value !== ""
       ) {
         try {
-          const { createAccount } = await createAccountMutation();
+          const { createAccount } = await createAccountMutation({
+              variables: {
+                  email: email.value,
+                  userName: userName.value,
+                  firstName: firstName.value,
+                  lastName: lastName.value
+              }
+          });
+
           if (!createAccount) {
             toast.error("Can't create account");
           } else {
@@ -67,7 +71,7 @@ export default () => {
     <AuthPresenter
       setAction={setAction}
       action={action}
-      username={username}
+      userName={userName}
       firstName={firstName}
       lastName={lastName}
       email={email}
