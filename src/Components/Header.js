@@ -66,14 +66,21 @@ const ME = gql`
   {
     me {
       userName
+      id
     }
   }
 `;
 
 export default withRouter(({ history }) => {
   const search = useInput("");
-  const meQuery = useQuery(ME);
-  console.log(meQuery);
+  const { data } = useQuery(ME);
+
+  // useQuery(ME) 로 조회한 me 데이터 출력.
+  // undefined 일 때는 데이터가 없기 때문에 data.me가 오류 발생
+  if(data !== undefined){
+      console.log(data.me);
+  }
+
   const onSearchSubmit = (e) => {
     e.preventDefault();
     history.push(`/search?term=${search.value}`);
@@ -98,9 +105,15 @@ export default withRouter(({ history }) => {
           <HeaderLink to="/notifications">
             <HeartEmpty />
           </HeaderLink>
-          <HeaderLink to="/username">
-            <User />
-          </HeaderLink>
+          { !(data !== undefined && data.me) ? 
+            <HeaderLink to="/#">
+              <User />
+            </HeaderLink>
+            :
+            <HeaderLink to={data.me.userName}>
+              <User />
+            </HeaderLink>
+          }
         </HeaderColumn>
       </HeaderWrapper>
     </Header>
