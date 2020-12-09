@@ -6,12 +6,14 @@ import { Route, Switch } from "react-router-dom";
 import Profile from "../Routes/Profile";
 import Explore from "../Routes/Explore";
 import Search from "../Routes/Search";
+import Letter from "../Routes/Letter";
 
 const LoggedInRoutes = () => (
     <Switch>
         <Route exact path="/" component={Feed} />
         <Route path="/explore" component={Explore} />
         <Route path="/search" component={Search}/>
+        <Route path="/letter" component={Letter}/>
         <Route path="/:userName" component={Profile}/>
     </Switch>
 );
