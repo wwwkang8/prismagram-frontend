@@ -3,14 +3,35 @@ import PostPresenter from "./PostPresenter";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 
+// 입력받은 매개인자
 const PostContainer = ({id, 
                         user, 
                         files,
                         likeCount,
                         isLiked,
                         comments,
-                        createdAt}) => {
-    return <PostPresenter />;
+                        createdAt,
+                        caption,
+                        location}) => {
+    
+    const [isLikedState, setIsLiked] = useState(isLiked);
+    const [likeCountState, setLikeCount] = useState(likeCount);
+    const comment = useInput("");
+
+    return (
+        <PostPresenter
+            user={user}
+            files={files}
+            likeCount={likeCountState}
+            isLiked={isLikedState}
+            comments={comments}
+            createdAt={createdAt}
+            newComment={comment}
+            setIsLiked={setIsLiked}
+            setLikeCount={setLikeCount}
+        />
+
+    );
 }
 
 PostContainer.propTypes = {
@@ -35,7 +56,9 @@ PostContainer.propTypes = {
             userName:PropTypes.string.isRequired
         }).isRequired
     })).isRequired,
-    createdAt:PropTypes.string.isRequired
+    createdAt:PropTypes.string.isRequired,
+    caption: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired
 };
 
 export default PostContainer;
