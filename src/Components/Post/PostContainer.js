@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostPresenter from "./PostPresenter";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
@@ -6,7 +6,7 @@ import useInput from "../../Hooks/useInput";
 // 입력받은 매개인자
 const PostContainer = ({id, 
                         user, 
-                        files,
+                        files, /** 사진id, url이 배열로 존재*/
                         likeCount,
                         isLiked,
                         comments,
@@ -16,7 +16,25 @@ const PostContainer = ({id,
     
     const [isLikedState, setIsLiked] = useState(isLiked);
     const [likeCountState, setLikeCount] = useState(likeCount);
+    const [currentItem, setCurrentItem] = useState(0);
+
+    const slide = () => {
+        // files 배열의 총 길이 구한다
+        const totalFiles = files.length;
+
+        if(currentItem === totalFiles - 1){ // 사진이 오직 1장이라면 3초 후에도 현재 사진을 보여준다
+            setTimeout(() => setCurrentItem(0), 3000);
+        }else{ // 사진이 2장이상이라면 3초후에는 다음 배열의 사진을 보여준다
+            setTimeout(() => setCurrentItem(currentItem + 1), 3000);
+        }
+    };
+
     const comment = useInput("");
+
+    //
+    useEffect(() => {
+        slide();
+    }, [currentItem]);
 
     return (
         <PostPresenter
@@ -29,6 +47,7 @@ const PostContainer = ({id,
             newComment={comment}
             setIsLiked={setIsLiked}
             setLikeCount={setLikeCount}
+            currentItem={currentItem}
         />
 
     );
