@@ -31,7 +31,7 @@ const PostContainer = ({id,
 
     const comment = useInput("");
 
-    //
+    // useEffect : 컴포넌트가 렌더링될 때마다 currentItem +1씩 하여 사진을 변경
     useEffect(() => {
         slide();
     }, [currentItem]);
