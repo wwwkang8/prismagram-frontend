@@ -10,8 +10,10 @@ const Post = styled.div`
     width: 100%;
     max-width:600px;
     margin-bottom: 25px;
+    user-select: none; 
 
 `;
+//user-select : none; 이 코드는 좋아요 버튼을 누를시 밑에 있는 text가 선택되지 않도록 하는 옵션.
 
 const Header = styled.header`
     padding: 15px;
@@ -99,7 +101,8 @@ export default ({
     likeCount,
     createdAt,
     newComment,
-    currentItem
+    currentItem,
+    toggleLike
 }) => (
     <Post>
         <Header>
@@ -114,7 +117,7 @@ export default ({
         </Files>
         <Meta>
             <Buttons>
-                <Button>{isLiked ? <HeartFull /> : <HeartEmpty /> }</Button>
+                <Button onClick={toggleLike}>{isLiked ? <HeartFull /> : <HeartEmpty /> }</Button>
                 <Button>
                     <Comment />
                 </Button>

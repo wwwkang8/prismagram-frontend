@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useMutation } from "react-apollo-hooks";
 import PostPresenter from "./PostPresenter";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
+import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
 
 // 입력받은 매개인자
 const PostContainer = ({id, 
@@ -17,6 +19,15 @@ const PostContainer = ({id,
     const [isLikedState, setIsLiked] = useState(isLiked);
     const [likeCountState, setLikeCount] = useState(likeCount);
     const [currentItem, setCurrentItem] = useState(0);
+    const comment = useInput("");
+
+    //useMutation을 사용하면 반환할때 함수, 데이터를 배열로 반환 --> 이부분 확인하기
+    const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
+        variables: { postId: id }
+    });
+    const [addCommentMutation] = useMutation(ADD_COMMENT, {
+        variables: { postId: id, text: comment.value }
+    });
 
     const slide = () => {
         // files 배열의 총 길이 구한다
@@ -29,12 +40,24 @@ const PostContainer = ({id,
         }
     };
 
-    const comment = useInput("");
 
     // useEffect : 컴포넌트가 렌더링될 때마다 currentItem +1씩 하여 사진을 변경
     useEffect(() => {
         slide();
     }, [currentItem]);
+
+    const toggleLike = async () => {
+        
+        if(isLikedState === true){
+            setIsLiked(false);
+            setLikeCount(likeCountState - 1);
+        }else{
+            setIsLiked(true);
+            setLikeCount(likeCountState + 1);
+        }
+
+        toggleLikeMutation();
+    };
 
     return (
         <PostPresenter
@@ -48,6 +71,7 @@ const PostContainer = ({id,
             setIsLiked={setIsLiked}
             setLikeCount={setLikeCount}
             currentItem={currentItem}
+            toggleLike={toggleLike}
         />
 
     );
