@@ -9,7 +9,9 @@ const Text = styled.span`
 `;
 
 // text를 매개변수로 받으면, 그 text를 <Text>로 감싸서 적용한다.
-const FatText = ({ text }) => <Text>{text}</Text>
+const FatText = ({ text, className }) => (
+    <Text className={className}>{text}</Text>
+);
 
 // FatText의 propTypes를 설정하여 String이 들어올 수 있도록 제한을 건다.
 FatText.propTypes = {
