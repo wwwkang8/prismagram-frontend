@@ -68,16 +68,23 @@ const PostContainer = ({id,
         // 키를 눌렀을 때 그 키의 유니크한 고유 번호
         // 엔터키는 keycode 상에서 13번에 해당한다
         if(which === 13){
+
+          
           event.preventDefault();
           try{
+
+              // 댓글을 먼저 등록한다
               const {
                   data: {addComment}
                 } = await addCommentMutation();
                 
+                // 등록한 댓글을 화면상에 보여준다
                 setSelfComments([
                     ...selfComments, 
                     addComment
                 ]);
+
+                // 댓글 입력란을 공백으로 바꾼다
                 comment.setValue("");
           }catch(error){
               console.log(error);
