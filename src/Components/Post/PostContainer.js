@@ -4,6 +4,8 @@ import PostPresenter from "./PostPresenter";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import { TOGGLE_LIKE, ADD_COMMENT } from "./PostQueries";
+import { toast } from "react-toastify";
+
 
 // 입력받은 매개인자
 const PostContainer = ({id, 
@@ -19,6 +21,7 @@ const PostContainer = ({id,
     const [isLikedState, setIsLiked] = useState(isLiked);
     const [likeCountState, setLikeCount] = useState(likeCount);
     const [currentItem, setCurrentItem] = useState(0);
+    const [selfComments, setSelfComments] = useState([]);
     const comment = useInput("");
 
     //useMutation을 사용하면 반환할때 함수, 데이터를 배열로 반환 --> 이부분 확인하기
@@ -59,12 +62,27 @@ const PostContainer = ({id,
         toggleLikeMutation();
     };
 
-    const onKeyPress = e => {
-        const { keyCode } = e;
+    const onKeyPress = async event => {
+        const { which } = event;
 
-        if(keyCode === 13){
-          comment.setValue("");
-         addCommentMutation();
+        // 키를 눌렀을 때 그 키의 유니크한 고유 번호
+        // 엔터키는 keycode 상에서 13번에 해당한다
+        if(which === 13){
+          event.preventDefault();
+          try{
+              const {
+                  data: {addComment}
+                } = await addCommentMutation();
+                
+                setSelfComments([
+                    ...selfComments, 
+                    addComment
+                ]);
+                comment.setValue("");
+          }catch(error){
+              console.log(error);
+              toast.error("Can't send comment")
+          }
         }
 
         return;
@@ -85,6 +103,7 @@ const PostContainer = ({id,
             currentItem={currentItem}
             toggleLike={toggleLike}
             onKeyPress={onKeyPress}
+            selfComments={selfComments}
         />
 
     );

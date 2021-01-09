@@ -80,7 +80,7 @@ export const Logo = ({size = 24}) => (
   </svg>
 );
 
-export const Letter = () => (
+export const Resume = () => (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
       width="24" 
