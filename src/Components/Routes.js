@@ -1,11 +1,11 @@
 import Auth from "../Routes/Auth";
+import Search from "../Routes/Search/index";
 import Feed from "../Routes/Feed";
 import React from "react";
 import PropTypes from "prop-types";
 import { Route, Switch } from "react-router-dom";
 import Profile from "../Routes/Profile";
 import Explore from "../Routes/Explore";
-import Search from "../Routes/Search";
 import Resume from "../Routes/Resume";
 
 const LoggedInRoutes = () => (
