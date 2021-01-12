@@ -13,6 +13,7 @@ const Container = styled.button`
     text-align: center;
     padding: 7px 0px;
     font-size: 14px;
+    cursor: pointer;
 `;
 
 // 컨테이너로 text를 감싼다
