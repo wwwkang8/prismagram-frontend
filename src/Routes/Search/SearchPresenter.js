@@ -12,7 +12,12 @@ const Wrapper = styled.div`
 
 /** Section div를 생성 */
 const Section = styled.div`
-
+    margin-bottom: 15px;
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 160px;
+    grid-auto-rows: 160px;
 `;
 
 /** SearchPresenter 호출시 렌더링 로직 */
@@ -40,7 +45,7 @@ const SearchPresenter = ({ searchTerm, loading, data }) => { //검색어, 로딩
                             <UserCard
                                 userName={user.userName}
                                 isFollowing={user.isFollowing}
-                                url={user.url}
+                                url={user.avatar}
                                 isSelf={user.isSelf}
                             />
                              

@@ -4,9 +4,23 @@ import PropTypes from "prop-types";
 import Avatar from "./Avatar";
 import FatText from "./FatText";
 import Button from "./Button";
+import {Link} from "react-router-dom";
 
 const Card = styled.div`
+    ${props => props.theme.whiteBox}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+`;
 
+const EAvatar = styled(Avatar)`
+    margin-bottom: 15px;
+`;
+
+const ELink = styled(Link)`
+    color: inherit;
+    margin-bottom: 10px;
 `;
 
 /** UserCard 호출 입력 파라메터 : userName, isFollowing, url, isSelf
@@ -14,8 +28,10 @@ const Card = styled.div`
  */
 const UserCard = ({ userName, isFollowing, url, isSelf }) => (
     <Card>
-        <Avatar url={ url }/>
-        <FatText text={ userName } />
+        <EAvatar url={ url } size="md" />
+        <ELink to={`/${userName}`}>
+            <FatText text={ userName } />
+        </ELink>    
         {!isSelf && <Button text={isFollowing ? "Unfollowing" : "following" }/>}
     </Card>
 );
