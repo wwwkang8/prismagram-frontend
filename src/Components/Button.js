@@ -17,7 +17,9 @@ const Container = styled.button`
 `;
 
 // 컨테이너로 text를 감싼다
-const Button = ({ text }) => <Container>{text}</Container>
+const Button = ({ text, onClick }) => (
+    <Container onClick={onClick}>{text}</Container>
+);
 
 // 버튼에 들어오는 값은 text 값으로 제한해주는 것.
 Button.propTypes = {

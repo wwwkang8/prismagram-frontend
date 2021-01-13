@@ -43,6 +43,7 @@ const SearchPresenter = ({ searchTerm, loading, data }) => { //검색어, 로딩
                     ) : (
                         data.searchUser.map(user => (//유저가 있는 경우 for문을 돌려서, 각 유저의 정보를 UserCard에 넣어서 출력
                             <UserCard
+                                id={user.id}
                                 userName={user.userName}
                                 isFollowing={user.isFollowing}
                                 url={user.avatar}
