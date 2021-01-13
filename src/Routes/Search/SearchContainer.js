@@ -13,6 +13,7 @@ export default withRouter(({location: {search}}) => {
             term
         }
     });
+    console.log("-------검색된 유저데이터 확인하는 부분--------")
     console.log(data);
 
     return <SearchPresenter searchTerm={term} loading={loading} data={data} />;
