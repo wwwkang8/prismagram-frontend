@@ -4,6 +4,7 @@ import FatText from "../../Components/FatText";
 import PropTypes from "prop-types";
 import Loader from "../../Components/Loader";
 import UserCard from "../../Components/UserCard";
+import SquarePost from "../../Components/SquarePost";
 
 /** Wrapper div를 생성 */
 const Wrapper = styled.div`
@@ -15,9 +16,15 @@ const Section = styled.div`
     margin-bottom: 15px;
     display: grid;
     grid-gap: 25px;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 160px);
     grid-template-rows: 160px;
     grid-auto-rows: 160px;
+`;
+
+const PostSection = styled(Section)`
+    grid-template-columns: repeat(4, 200px);
+    grid-template-rows: 200px;
+    grid-auto-rows: 200px;
 `;
 
 /** SearchPresenter 호출시 렌더링 로직 */
@@ -53,13 +60,18 @@ const SearchPresenter = ({ searchTerm, loading, data }) => { //검색어, 로딩
                         ))
                     )}
                 </Section>
-                <Section>
+                <PostSection>
                     {data.searchPost.length === 0 ? ( // 검색 포스팅이 없다면 post not found 출력
                         <FatText text="No Post found"/>
                     ) : (
-                        data.searchPost.map(post => null)
+                        data.searchPost.map(post => (
+                            <SquarePost 
+                                likeCount={post.likeCount} 
+                                commentCount={post.commentCount} 
+                                file={post.files[0]}  />
+                        ))
                     )}
-                </Section>
+                </PostSection>
             </Wrapper>
         )
     }
