@@ -12,6 +12,7 @@ const PostContainer = ({id,
                         user, 
                         files, /** 사진id, url이 배열로 존재*/
                         likeCount,
+                        commentCount,
                         isLiked,
                         comments,
                         createdAt,
