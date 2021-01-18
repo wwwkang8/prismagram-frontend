@@ -66,6 +66,7 @@ const SearchPresenter = ({ searchTerm, loading, data }) => { //검색어, 로딩
                     ) : (
                         data.searchPost.map(post => (
                             <SquarePost 
+                                key={post.id}
                                 likeCount={post.likeCount} 
                                 commentCount={post.commentCount} 
                                 file={post.files[0]}  />
