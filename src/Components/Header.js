@@ -76,12 +76,6 @@ export default withRouter(({ history }) => {
   const search = useInput("");
   const { data } = useQuery(ME);
 
-  // useQuery(ME) 로 조회한 me 데이터 출력.
-  // undefined 일 때는 데이터가 없기 때문에 data.me가 오류 발생
-  if(data !== undefined){
-      console.log(data.me);
-  }
-
   const onSearchSubmit = (e) => {
     e.preventDefault();
     history.push(`/search?term=${search.value}`);
