@@ -3,7 +3,7 @@ import Search from "../Routes/Search/index";
 import Feed from "../Routes/Feed";
 import React from "react";
 import PropTypes from "prop-types";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Profile from "../Routes/Profile";
 import Explore from "../Routes/Explore";
 import Resume from "../Routes/Resume";
@@ -15,12 +15,14 @@ const LoggedInRoutes = () => (
         <Route path="/search" component={Search}/>
         <Route path="/resume" component={Resume}/>
         <Route path="/:userName" component={Profile}/>
+        <Redirect from = "*" to="/" />
     </Switch>
 );
 
 const LoggedOutRoutes = () => (
     <Switch>
         <Route exact path="/" component={Auth}/>
+        <Redirect from = "*" to="/" />
     </Switch>
 );
 
